@@ -1,0 +1,46 @@
+@(message: String)
+
+@import helper._
+
+@main("Form with Captcha") {
+
+    @helper.form(action = routes.Application.submit) {
+
+        <div>Form Message: <span class="error">@message</span></div>
+
+        <div>
+            <label for="nome">Nome</label>
+            <div class="input">
+                <input type="text" id="nome" name="nome" />
+            </div>
+        </div>
+
+        <hr />
+
+        <div>
+            <label for="captcha">Captcha</label>
+            <div class="input">
+                <input type="text" id="captcha" name="captcha" />
+
+                <span id="captcha_img">
+                    <img src="@routes.Application.captcha()" alt="Captcha Image" id="src_captcha"/>
+                </span>
+                <span>
+                    <input type="button" name="reload_captcha" id="reload_captcha" value="Reload Captcha" />
+                </span>
+            </div>
+        </div>
+
+        <hr />
+
+        <input type="submit" />
+        <input type="reset" />
+
+        <script type="text/javascript">
+            $('#reload_captcha').bind('click', function() {
+                $('#src_captcha').attr('src', "@routes.Application.captcha()")
+            });
+        </script>
+
+    }
+}
