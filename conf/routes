@@ -8,5 +8,8 @@ GET     /captcha                    controllers.Application.captcha
 POST    /submit                     controllers.Application.submit
 GET     /form                       controllers.Application.form
 
+GET     /form2                      controllers.Application2.form
+POST    /submit2                    controllers.Application2.submit
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

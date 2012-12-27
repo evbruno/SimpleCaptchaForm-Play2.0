@@ -1,12 +1,19 @@
-@(message: String)
+@()(implicit flash: Flash)
 
 @import helper._
 
-@main("Form with Captcha") {
+@main(title = "Form with Captcha") {
 
     @helper.form(action = routes.Application.submit) {
 
-        <div>Form Message: <span class="error">@message</span></div>
+
+        @flash.get("errorMsg").map { message =>
+            <div class="alert alert-block alert-error fade in">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4 class="alert-heading">OOps!</h4>
+                <p>@message</p>
+            </div>
+        }
 
         <div>
             <label for="nome">Nome</label>
@@ -43,4 +50,6 @@
         </script>
 
     }
+
 }
+

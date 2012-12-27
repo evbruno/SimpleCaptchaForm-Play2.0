@@ -1,0 +1,58 @@
+@(myForm: Form[(String, String, String)])(implicit flash: Flash)
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(myTwitterBootstrapInput.f) }
+
+@main(title = "Form with Captcha using custom input and TwitterBootstrap styles", nav = "form2") {
+
+    @flash.get("errorMsg").map { message =>
+        <div class="alert alert-block alert-error fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4 class="alert-heading">OOps!</h4>
+            <p>@message</p>
+        </div>
+    }
+
+    @flash.get("successMsg").map { message =>
+        <div class="alert alert-block alert-success fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4 class="alert-heading">Hell yeah!</h4>
+            <p>@message</p>
+        </div>
+    }
+
+    @helper.form(action = routes.Application2.submit, args = ('class -> "form-horizontal")) {
+
+        <!-- input firstName -->
+        @inputText(myForm("firstName"))
+        <!-- /input firstName -->
+
+        <!-- input captcha.form -->
+        @captchaInput(myForm("captcha"))
+        <!-- /input captcha.form -->
+
+        <!-- input lastName -->
+        @inputText(myForm("lastName"))
+        <!-- /input lastName -->
+
+        @flash.get("errorMsg").map { message =>
+            <div class="alert alert-block alert-error fade in">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4 class="alert-heading">OOps!</h4>
+                <p>@message</p>
+            </div>
+        }
+
+
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-primary">Submit <i class="icon-fire"></i></button>
+                <button type="reset" class="btn btn-inverse">Reset <i class="icon-trash icon-white"></i></button>
+            </div>
+        </div>
+
+    }
+
+}
+
