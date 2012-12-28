@@ -1,11 +1,12 @@
 package controllers
 
+import captcha.CaptchaController
 import play.api._
 import data.Form
 import mvc._
 import play.api.data.Forms._
 
-object Application2 extends Controller with CaptchaInput {
+object Application2 extends Controller with CaptchaController {
 
   def myForm(implicit request: Request[_]): Form[(String, String, String)] = Form(
     tuple(

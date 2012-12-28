@@ -1,18 +1,17 @@
-package controllers
+package controllers.captcha
 
-import com.github.cage.GCage
 import play.api.libs.iteratee.Enumerator
 import play.api.mvc._
 import play.api.Logger
 
-trait CaptchaInput extends Controller {
+trait CaptchaController extends Controller {
 
   val CAPTCHA_TOKEN = "captcha.token"
 
-  private lazy val cage = new GCage
+  private val captcha : CaptchaComponent = new CageCaptcha
 
   def captchaImage(implicit request: Request[AnyContent]) = {
-    val token = cage.getTokenGenerator.next()
+    val token = captcha.generator.next
     val message: String = "Current captcha token: [%s] Current session (before update): [%s]".format(token, request.session)
 
     Logger.debug(message)
@@ -21,14 +20,14 @@ trait CaptchaInput extends Controller {
 
     SimpleResult(
       header = ResponseHeader(OK, Map(
-        CONTENT_TYPE -> ("image/" + cage.getFormat),
+        CONTENT_TYPE -> ("image/" + captcha.drawer.imageFormat),
         CACHE_CONTROL -> "no-cache, no-store",
         PRAGMA -> "no-cache",
         LAST_MODIFIED -> now,
         EXPIRES -> now,
         DATE -> now
       )),
-      body = Enumerator(cage.draw(token))
+      body = Enumerator(captcha.drawer.draw(token))
     ).withSession(
       request.session + (CAPTCHA_TOKEN -> token)
     )

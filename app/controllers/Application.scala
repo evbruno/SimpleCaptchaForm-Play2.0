@@ -1,10 +1,11 @@
 package controllers
 
+import captcha.CaptchaController
 import play.api._
 import mvc._
 import java.util.Date
 
-object Application extends Controller with CaptchaInput {
+object Application extends Controller with CaptchaController {
 
   def index = form
 
