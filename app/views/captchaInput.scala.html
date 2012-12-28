@@ -5,7 +5,7 @@
 <!-- CAPTCHA input -->
 
     @input(field, args.filter(_._1 != 'type):_*) { (id, name, value, htmlArgs) =>
-        <input type="text" placeholder="CAPTCHA" id="@id" name="@name" value="@value" @toHtmlArgs(htmlArgs) />
+        <input type="text" placeholder="CAPTCHA" autocomplete="off" id="@id" name="@name" @toHtmlArgs(htmlArgs) />
 
         <img src="@routes.Application.captcha()" alt="Captcha Image" id="src_captcha" class="img-polaroid"/>
 
