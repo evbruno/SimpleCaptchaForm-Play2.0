@@ -16,3 +16,9 @@ trait CaptchaComponent {
   }
 
 }
+
+object CaptchaComponent {
+
+  val CAPTCHA_KEY_CONFIG = "captcha.impl"
+
+}

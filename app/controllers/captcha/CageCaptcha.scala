@@ -2,7 +2,7 @@ package controllers.captcha
 
 import com.github.cage.{Cage, GCage}
 
-class CageCaptcha extends CaptchaComponent {
+trait CageCaptcha extends CaptchaComponent {
 
   def generator: TokenGenerator = new CageTokenGenerator(engine)
 

@@ -6,7 +6,7 @@ import com.google.code.kaptcha.util.Config
 import com.google.code.kaptcha.Producer
 import java.io.ByteArrayOutputStream
 
-class Kaptcha extends CaptchaComponent {
+trait Kaptcha extends CaptchaComponent {
 
   def generator: TokenGenerator = new KaptchaTokenGenerator(engine)
 
