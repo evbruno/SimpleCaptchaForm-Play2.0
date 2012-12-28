@@ -38,4 +38,9 @@ trait CaptchaInput extends Controller {
     in == request.session.get(CAPTCHA_TOKEN).mkString
   }
 
+  def consumeToken(f: => PlainResult)(implicit request: Request[_]): PlainResult = {
+    Logger.debug("Consuming/Cleaning the current token from request.session: %s" format(request.session.get(CAPTCHA_TOKEN)))
+    f.withSession(request.session - CAPTCHA_TOKEN)
+  }
+
 }

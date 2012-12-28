@@ -18,12 +18,14 @@ object Application2 extends Controller with CaptchaInput {
 
   def submit = Action {
     implicit request =>
-      myForm.bindFromRequest().fold(
-        errors => BadRequest(views.html.captchaForm2(errors)),
-        ok => Redirect(routes.Application2.form())
-          .withSession(session - CAPTCHA_TOKEN)
-          .flashing("successMsg" -> "Captcha verified !!!")
-      )
+
+      consumeToken {
+        myForm.bindFromRequest().fold(
+          errors => BadRequest(views.html.captchaForm2(errors)),
+          ok => Redirect(routes.Application2.form())
+            .flashing("successMsg" -> "Captcha verified !!!")
+        )
+      }
   }
 
   def form = Action {
