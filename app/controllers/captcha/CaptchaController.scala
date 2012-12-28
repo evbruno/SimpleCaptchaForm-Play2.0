@@ -8,7 +8,8 @@ trait CaptchaController extends Controller {
 
   val CAPTCHA_TOKEN = "captcha.token"
 
-  private val captcha : CaptchaComponent = new CageCaptcha
+  //private val captcha : CaptchaComponent = new CageCaptcha
+  private val captcha : CaptchaComponent = new Kaptcha
 
   def captchaImage(implicit request: Request[AnyContent]) = {
     val token = captcha.generator.next
